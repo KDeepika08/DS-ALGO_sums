@@ -1,0 +1,41 @@
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+https://leetcode.com/problems/min-stack/description/
+
+class MinStack {
+public:
+    stack<int>curr_s,min_s; //maintaining two stacks 1st stack is a normal stack where we 
+                     //perform all op whereas second stack stores only the min val 
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        curr_s.push(val);//pushing value to 1st stack
+
+        //if min_s is empty then we can directly push the ele without any comparisions
+        //or if val that we want to push is less than the top of min_s then push that val
+        //to min_s
+        if(min_s.empty() || val <= min_s.top()){ 
+            min_s.push(val);
+        }
+    }
+    
+    void pop() {
+        //To pop a val we need to check with top ele in min_s. If both r same then we need
+        //to pop that val from min_s also and now the top of min_s changes
+        if(curr_s.top() == min_s.top()){
+            min_s.pop();
+        }
+        curr_s.pop();
+    }
+    
+    int top() {
+        return curr_s.top();
+    }
+    
+    int getMin() {
+        return min_s.top();
+    }
+};
+
+
